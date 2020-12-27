@@ -667,7 +667,7 @@
 #define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Y_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define Y_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
 
@@ -692,7 +692,7 @@
 
 // GTR Board
 #define X_DRIVER_TYPE  TMC2209    // X-front  == x1  GTR Board 'X'
-#define Y_DRIVER_TYPE  TMC2209    // y-Laser
+#define Y_DRIVER_TYPE  A4988    // y-Laser
 #define Z_DRIVER_TYPE  A4988           // z-left  == z1
 //#define E0_DRIVER_TYPE TMC2209     // setup for X2
 //#define E1_DRIVER_TYPE A4988      // z-right  == z2
@@ -767,7 +767,7 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 50, 50, 5, 50 }
+#define DEFAULT_MAX_FEEDRATE          { 15, 15, 5, 50 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -780,7 +780,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 15, 15, 15, 15 }
+#define DEFAULT_MAX_ACCELERATION      { 5, 5, 5, 5 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -797,7 +797,7 @@
  */
 #define DEFAULT_ACCELERATION          5    // X, Y, Z and E acceleration for printing moves
 #define DEFAULT_RETRACT_ACCELERATION  10    // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   10    // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_TRAVEL_ACCELERATION   7    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Default Jerk limits (mm/s)
