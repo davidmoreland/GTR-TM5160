@@ -1,8 +1,11 @@
 /**
  * Build Notes:
- * DCM: X is using 1st Stepper Socket on M5 Board
+ * DCM: X2 is using E0 on GTR main board
+ * X/X2 set up using TM2209
  * Testing Y on GTR board with none good X configs.
+ *  Z 'y-spit' using 4988 works X+,X-
  * 
+ * Driver timing in _adv.h ALL disabled
 **/
 
 
@@ -78,7 +81,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(dcm, 122320-6:30pm)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(dcm, 122720-3:45pm)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -667,7 +670,7 @@
 #define Y_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define Z_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
-#define Y_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+//#define Y_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
 
