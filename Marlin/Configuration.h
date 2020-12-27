@@ -4,8 +4,9 @@
  * X/X2 set up using TM2209
  * Testing Y on GTR board with none good X configs.
  *  Z 'y-spit' using 4988 works X+,X-
- * 
+ * Y does NOTHING even if using a known GOOD driver.
  * Driver timing in _adv.h ALL disabled
+ * Invert STEP on 'X'
 **/
 
 
@@ -763,14 +764,14 @@
  * 
  *   ms-16 -> 2560   DCM 
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 2560, 2560, 2560, 2560 } 
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 1200, 2560, 2560, 2560 } 
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 15, 15, 5, 50 }
+#define DEFAULT_MAX_FEEDRATE          { 5, 15, 5, 50 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -783,7 +784,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 5, 5, 5, 5 }
+#define DEFAULT_MAX_ACCELERATION      { 2, 5, 5, 5 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -1109,7 +1110,7 @@
 // @section machine
 
 // Invert the stepper direction. Change (or reverse the motor connector) if an axis goes the wrong way.
-#define INVERT_X_DIR false
+#define INVERT_X_DIR true
 #define INVERT_Y_DIR true
 #define INVERT_Z_DIR false
 
