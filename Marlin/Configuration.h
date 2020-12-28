@@ -7,6 +7,8 @@
  * Y does NOTHING even if using a known GOOD driver.
  * Driver timing in _adv.h ALL disabled
  * Invert STEP on 'X'
+ * Endstops reported TRIGGERED on X/X2 when 'false' changed to TRUE
+ * 
 **/
 
 
@@ -667,10 +669,10 @@
 
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 
-#define X_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define X_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define Y_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define Z_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
-#define X_MAX_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
+#define X_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 //#define Y_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
@@ -695,15 +697,15 @@
  */
 
 // GTR Board
-#define X_DRIVER_TYPE  TMC2209    // X-front  == x1  GTR Board 'X'
-#define Y_DRIVER_TYPE  A4988    // y-Laser
-#define Z_DRIVER_TYPE  A4988           // z-left  == z1
-//#define E0_DRIVER_TYPE TMC2209     // setup for X2
+#define X_DRIVER_TYPE  TMC5160    // X-front  == x1  GTR Board 'X'
+#define Y_DRIVER_TYPE  TMC5160    // y-Laser
+#define Z_DRIVER_TYPE  TMC5160           // z-left  == z1
+//#define E0_DRIVER_TYPE TMC5260     // setup for X2
 //#define E1_DRIVER_TYPE A4988      // z-right  == z2
 //#define E2_DRIVER_TYPE A4988      // z-rear     == z3
 
 
-#define X2_DRIVER_TYPE TMC2209     // x-rear  == x2  GTR Board 'E0'
+#define X2_DRIVER_TYPE TMC5160     // x-rear  == x2  GTR Board 'E0'
 //#define Y2_DRIVER_TYPE TB6600
 //#define Z2_DRIVER_TYPE TB6600
 //#define Z3_DRIVER_TYPE TB6600
@@ -1167,7 +1169,7 @@
  */
 
 // Min software endstops constrain movement within minimum coordinate bounds
-#define MIN_SOFTWARE_ENDSTOPS
+//#define MIN_SOFTWARE_ENDSTOPS
 #if ENABLED(MIN_SOFTWARE_ENDSTOPS)
   #define MIN_SOFTWARE_ENDSTOP_X
   #define MIN_SOFTWARE_ENDSTOP_Y
