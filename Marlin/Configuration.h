@@ -1,13 +1,13 @@
 /**
  * Build Notes:
  * DCM: X2 is using E0 on GTR main board
- * X/X2 set up using TM2209
+ * X, X/2, Y, Z -> TMC5160
  * Testing Y on GTR board with none good X configs.
  *  Z 'y-spit' using 4988 works X+,X-
  * Y does NOTHING even if using a known GOOD driver.
  * Driver timing in _adv.h ALL disabled
  * Invert STEP on 'X'
- * Endstops reported TRIGGERED on X/X2 when 'false' changed to TRUE
+ * 
  * 
 **/
 
@@ -84,7 +84,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(dcm, 122720-3:45pm)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(dcm, 122820-3:00am)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -639,7 +639,7 @@
 #define USE_ZMIN_PLUG
 #define USE_XMAX_PLUG
 //#define USE_YMAX_PLUG
-#define USE_ZMAX_PLUG
+//#define USE_ZMAX_PLUG
 
 // Enable pullup for all endstops to prevent a floating state
 #define ENDSTOPPULLUPS
