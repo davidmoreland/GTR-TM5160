@@ -91,17 +91,6 @@
 #endif
 
 
-/*  to use Y as X2
-// X2 'was' Y
-//
-#define X2_STEP_PIN                          PE3
-#define X2_DIR_PIN                           PE2
-#define X2_ENABLE_PIN                        PE4
-#ifndef X2_CS_PIN
-  #define X2_CS_PIN                          PE1
-#endif
-*/
-
 #define Y_STEP_PIN                          PE3
 #define Y_DIR_PIN                           PE2
 #define Y_ENABLE_PIN                        PE4
@@ -110,7 +99,7 @@
 #endif
 
 
-
+// Z works !!!
 #define Z_STEP_PIN                          PB8
 #define Z_DIR_PIN                           PB7   
 #define Z_ENABLE_PIN                        PB9
@@ -262,7 +251,7 @@
   #define E7_SERIAL_RX_PIN                  PH14
 
   // Reduce baud rate to improve software serial reliability
-  #define TMC_BAUD_RATE                    19200
+  #define TMC_BAUD_RATE                    115200  // was 19200
 #endif
 
 //
@@ -336,6 +325,7 @@
 #elif SD_CONNECTION_IS(ONBOARD)
 
   // Instruct the STM32 HAL to override the default SPI pins from the variant.h file
+  
   #define CUSTOM_SPI_PINS
   #define SDSS                              PA4
   #define SS_PIN                            SDSS
