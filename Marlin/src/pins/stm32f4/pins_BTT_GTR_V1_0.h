@@ -115,7 +115,15 @@
   #define E0_CS_PIN                         PG10
 #endif
 
-
+/*
+// X2 was E0
+#define X2_STEP_PIN                         PG12
+#define X2_DIR_PIN                          PG11
+#define X2_ENABLE_PIN                       PG13
+#ifndef X2_CS_PIN
+  #define X2_CS_PIN                         PG10
+#endif
+*/
 #define E1_STEP_PIN                         PD6
 #define E1_DIR_PIN                          PD5
 #define E1_ENABLE_PIN                       PD7
@@ -140,12 +148,24 @@
 #endif
 */
 //M1
+/*
 #define I_STEP_PIN                          PF3
 #define I_DIR_PIN                           PG3
 #define I_ENABLE_PIN                        PF8
 #ifndef I_CS_PIN
   #define I_CS_PIN                          PG4
 #endif
+*/
+#define X2_STEP_PIN                          PF3
+#define X2_DIR_PIN                           PG3
+#define X2_ENABLE_PIN                        PF8
+#ifndef X2_CS_PIN
+  #define X2_CS_PIN                          PG4
+#endif
+
+
+
+
 //M2
 #define J_STEP_PIN                         PD14
 #define J_DIR_PIN                          PD11

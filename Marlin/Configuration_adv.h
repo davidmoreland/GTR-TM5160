@@ -2272,12 +2272,12 @@
 #if HAS_TRINAMIC_CONFIG
 
   #define HOLD_MULTIPLIER    0.50 // Scales down the holding current from run current
-  #define INTERPOLATE       true  // Interpolate X/Y/Z_MICROSTEPS to 256
+  #define INTERPOLATE       false  // Interpolate X/Y/Z_MICROSTEPS to 256
 
   #if AXIS_IS_TMC(X)
 // BTT 5560 PEAK = 
   // BTT 5560 max RMS = 3000.
-    #define X_CURRENT       2500      // (mA) RMS current. Multiply by 1.414 for peak current.
+    #define X_CURRENT       3000    // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
     #define X_MICROSTEPS     8    // 0..256
     #define X_RSENSE          0.075
@@ -2285,7 +2285,7 @@
   #endif
 
   #if AXIS_IS_TMC(X2)
-    #define X2_CURRENT      2500
+    #define X2_CURRENT      3000
     #define X2_CURRENT_HOME X2_CURRENT
     #define X2_MICROSTEPS    8
     #define X2_RSENSE        0.075
@@ -2293,10 +2293,10 @@
   #endif
 
   #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       2500
+    #define Y_CURRENT       1800
     #define Y_CURRENT_HOME  Y_CURRENT
     #define Y_MICROSTEPS     8
-    #define Y_RSENSE         0.075
+    #define Y_RSENSE         0.011
     #define Y_CHAIN_POS       -1
   #endif
 
@@ -2312,10 +2312,10 @@
   // Max voltage = 35v
   // Max current 3000 
   // 4489 max RMS = 
-    #define Z_CURRENT       1000
+    #define Z_CURRENT       3000
     #define Z_CURRENT_HOME  Z_CURRENT
     #define Z_MICROSTEPS     8
-    #define Z_RSENSE          0.011  // TMC2209 =>  0.011  TMC 5130 => 0.075
+    #define Z_RSENSE          0.075 // TMC2209 =>  0.011  TMC 5130 => 0.075
     #define Z_CHAIN_POS     -1
   #endif
 
@@ -2343,7 +2343,7 @@
     #define Z4_CHAIN_POS     -1
   #endif
 
-  #if AXIS_IS_TMC(E0)
+  #if AXIS_IS_TMC(E0)   // X2
     #define E0_CURRENT      800
     #define E0_MICROSTEPS    16
     #define E0_RSENSE         0.075
@@ -2442,8 +2442,8 @@
    * on the same serial port, either here or in your board's pins file.
    */
   //#define  X_SLAVE_ADDRESS 0
-  //#define  Y_SLAVE_ADDRESS 0
-  #define  Z_SLAVE_ADDRESS 0
+  #define  Y_SLAVE_ADDRESS 0
+  //#define  Z_SLAVE_ADDRESS 0
   //#define X2_SLAVE_ADDRESS 0
   //#define Y2_SLAVE_ADDRESS 0
   //#define Z2_SLAVE_ADDRESS 0
@@ -2464,7 +2464,7 @@
    * Use for drivers that do not use a dedicated enable pin, but rather handle the same
    * function through a communication line such as SPI or UART.
    */
-  //#define SOFTWARE_DRIVER_ENABLE
+  #define SOFTWARE_DRIVER_ENABLE
 
   /**
    * TMC2130, TMC2160, TMC2208, TMC2209, TMC5130 and TMC5160 only
@@ -2564,7 +2564,7 @@
    *
    * Comment *_STALL_SENSITIVITY to disable sensorless homing for that axis.
    */
-  //#define SENSORLESS_HOMING // StallGuard capable drivers only
+ // #define SENSORLESS_HOMING // StallGuard capable drivers only
 
   #if EITHER(SENSORLESS_HOMING, SENSORLESS_PROBING)
     // TMC2209: 0...255. TMC2130: -64...63

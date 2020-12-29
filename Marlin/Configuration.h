@@ -3,15 +3,25 @@
  * DCM: X2 is using E0 on GTR main board
  * X, X/2, Y, Z -> TMC5160
  * Testing Y on GTR board with none good X configs.
- *  Z 'y-spit' -> TMC5160 works Z+,Z-
+ *  Z 'y-spit' -> TMC5160 works Z+,Z- / Also works with TMC2209
  * X - partially works... it is eratic TMC 2209 AND TMC 5160
  * 
  * Y does NOTHING even if using a known GOOD driver.
  * Driver timing in _adv.h ALL disabled
  * 
  * Set current:
- * Z -> 800ma  TMC2209
- * X / Y 2500ma  TMC 5130
+ * Z / X-X2 -> 2450ma  TMC5130
+ *  Y 1000ma  TMC2209
+ * 
+ * 
+ * Dec 29 9:00 am
+ * -- trying to get X2 to work
+ * enabled 1 extruder to make E1 become X2
+ * Set Extruders to 1 and plugged X2 into E1
+ * """"" Did NOT work"
+ * 
+ * 9:07am
+ * Set I as X2 
  * 
 **/
 
@@ -88,7 +98,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(dcm, 122820-3:00am)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(dcm, 122920-8:40am)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -159,7 +169,7 @@
 
 // This defines the number of extruders
 // :[0, 1, 2, 3, 4, 5, 6, 7, 8]
-#define EXTRUDERS 0
+#define EXTRUDERS 1
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
@@ -643,7 +653,7 @@
 #define USE_ZMIN_PLUG
 #define USE_XMAX_PLUG
 //#define USE_YMAX_PLUG
-//#define USE_ZMAX_PLUG
+#define USE_ZMAX_PLUG
 
 // Enable pullup for all endstops to prevent a floating state
 #define ENDSTOPPULLUPS
@@ -674,7 +684,7 @@
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 
 #define X_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
-#define Y_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+#define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define X_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 //#define Y_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
@@ -702,8 +712,8 @@
 
 // GTR Board
 #define X_DRIVER_TYPE  TMC5160    // X-front  == x1  GTR Board 'X'
-#define Y_DRIVER_TYPE  TMC5160    // y-Laser
-#define Z_DRIVER_TYPE  TMC2209           // z-left  == z1
+#define Y_DRIVER_TYPE   A4899   // y-Laser
+#define Z_DRIVER_TYPE   TMC5160          // z-left  == z1
 //#define E0_DRIVER_TYPE TMC5260     // setup for X2
 //#define E1_DRIVER_TYPE A4988      // z-right  == z2
 //#define E2_DRIVER_TYPE A4988      // z-rear     == z3
@@ -770,14 +780,14 @@
  * 
  *   ms-16 -> 2560   DCM 
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 2560, 2560, 2560, 2560 } 
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 1280, 2560, 1280, 1280 } 
 
 /**
  * Default Max Feed Rate (mm/s)
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 5, 5, 5, 5 }
+#define DEFAULT_MAX_FEEDRATE          { 10, 10, 10, 5 }
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -790,7 +800,7 @@
  * Override with M201
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_ACCELERATION      { 5, 5, 5, 5 }
+#define DEFAULT_MAX_ACCELERATION      { 2, 2, 2, 3 }
 
 //#define LIMITED_MAX_ACCEL_EDITING     // Limit edit via M201 or LCD to DEFAULT_MAX_ACCELERATION * 2
 #if ENABLED(LIMITED_MAX_ACCEL_EDITING)
@@ -805,9 +815,9 @@
  *   M204 R    Retract Acceleration
  *   M204 T    Travel Acceleration
  */
-#define DEFAULT_ACCELERATION          5    // X, Y, Z and E acceleration for printing moves
-#define DEFAULT_RETRACT_ACCELERATION  10    // E acceleration for retracts
-#define DEFAULT_TRAVEL_ACCELERATION   5    // X, Y, Z acceleration for travel (non printing) moves
+#define DEFAULT_ACCELERATION          2    // X, Y, Z and E acceleration for printing moves
+#define DEFAULT_RETRACT_ACCELERATION  2   // E acceleration for retracts
+#define DEFAULT_TRAVEL_ACCELERATION   2    // X, Y, Z acceleration for travel (non printing) moves
 
 /**
  * Default Jerk limits (mm/s)
