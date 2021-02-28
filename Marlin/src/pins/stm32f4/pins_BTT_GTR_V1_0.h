@@ -51,10 +51,10 @@
 //
 #define X_MIN_PIN                           PF2
 #define X_MAX_PIN                           PG14 // X2 uses this as X2_Min_PIN
-#define Y_MIN_PIN                           PC13
-#define Y_MAX_PIN                           PG9
-#define Z_MIN_PIN                           PE0
-#define Z_MAX_PIN                           PD3
+#define Y_MIN_PIN                           PG8 
+#define Y_MAX_PIN                           PG9 // Z3 uses this as Z3_Min_PIN
+#define Z_MIN_PIN                           PE0  // Z1_Min_PIN
+#define Z_MAX_PIN                           PD3  // Z2 uses this as Z2_Min_PIN
 
 
 //

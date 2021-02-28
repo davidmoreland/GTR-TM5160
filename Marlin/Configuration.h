@@ -98,7 +98,7 @@
 // @section info
 
 // Author info of this build printed to the host during boot and M115
-#define STRING_CONFIG_H_AUTHOR "(dcm, 122920-8:40am)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(dcm, Feb27-11:58pm)" // Who made the changes.
 //#define CUSTOM_VERSION_FILE Version.h // Path from the root directory (no quotes)
 
 /**
@@ -169,7 +169,7 @@
 
 // This defines the number of extruders
 // :[0, 1, 2, 3, 4, 5, 6, 7, 8]
-#define EXTRUDERS 1
+#define EXTRUDERS 0
 
 // Generally expected filament diameter (1.75, 2.85, 3.0, ...). Used for Volumetric, Filament Width Sensor, etc.
 #define DEFAULT_NOMINAL_FILAMENT_DIA 1.75
@@ -527,7 +527,7 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp  22.20
+    #define DEFAULT_Kp  22.20+
     #define DEFAULT_Ki   1.08
     #define DEFAULT_Kd 114.00
   #endif
@@ -652,7 +652,7 @@
 #define USE_YMIN_PLUG
 #define USE_ZMIN_PLUG
 #define USE_XMAX_PLUG
-//#define USE_YMAX_PLUG
+#define USE_YMAX_PLUG
 #define USE_ZMAX_PLUG
 
 // Enable pullup for all endstops to prevent a floating state
@@ -687,7 +687,7 @@
 #define Y_MIN_ENDSTOP_INVERTING false // Set to true to invert the logic of the endstop.
 #define Z_MIN_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define X_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
-//#define Y_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
+#define Y_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING true // Set to true to invert the logic of the endstop.
 #define Z_MIN_PROBE_ENDSTOP_INVERTING false // Set to true to invert the logic of the probe.
 
@@ -711,21 +711,27 @@
  */
 
 // GTR Board
-#define X_DRIVER_TYPE  TMC5160    // X-front  == x1  GTR Board 'X'
-#define Y_DRIVER_TYPE   A4899   // y-Laser
-#define Z_DRIVER_TYPE   TMC5160          // z-left  == z1
-//#define E0_DRIVER_TYPE TMC5260     // setup for X2
+/* X Axis */
+#define X_DRIVER_TYPE  TMC2209    // X-front  == x1  GTR Board 'X-'
+#define X2_DRIVER_TYPE TMC2209     // x-rear  == x2  GTR Board 'E0'
+
+/* Y CNC/Laser Axis */
+#define Y_DRIVER_TYPE   TMC2209   // y-Laser  ==    GTR Board 'Y-'
+//#define Y2_DRIVER_TYPE TB6600   // y-printer
+
+/* Z Platform Axis */
+#define Z_DRIVER_TYPE   TMC5160          // z-left  == z1  GTR Board 'z-'
+#define Z2_DRIVER_TYPE TMC5160    // z-rear == Z2   GTR Board 'E1'
+#define Z3_DRIVER_TYPE TMC5160    // z-rear == Z3  GTR Board 'E2'
+//#define Z4_DRIVER_TYPE TB6600
+
+/* Extruders */
+//#define E0_DRIVER_TYPE TMC5160     // setup for X
 //#define E1_DRIVER_TYPE A4988      // z-right  == z2
 //#define E2_DRIVER_TYPE A4988      // z-rear     == z3
 
 
-#define X2_DRIVER_TYPE TMC5160     // x-rear  == x2  GTR Board 'E0'
-//#define Y2_DRIVER_TYPE TB6600
-//#define Z2_DRIVER_TYPE TB6600
-//#define Z3_DRIVER_TYPE TB6600
-//#define Z4_DRIVER_TYPE TB6600
-
-// M5 Expansion Board
+/* M5 Expansion Board */
 //#define E3_DRIVER_TYPE TMC2209
 //#define E4_DRIVER_TYPE A4988
 //#define E5_DRIVER_TYPE A4988
@@ -778,9 +784,13 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  * 
- *   ms-16 -> 2560   DCM 
+ *   ms-16 -> 2560   DCM
+ * 
+ * X ->  16
+ * Y -> 16
+ * z ->  2 
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 1280, 2560, 1280, 1280 } 
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 1280, 1280, 320, 1280 } 
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -1191,7 +1201,7 @@
 #endif
 
 // Max software endstops constrain movement within maximum coordinate bounds
-#define MAX_SOFTWARE_ENDSTOPS
+//#define MAX_SOFTWARE_ENDSTOPS
 #if ENABLED(MAX_SOFTWARE_ENDSTOPS)
   #define MAX_SOFTWARE_ENDSTOP_X
   #define MAX_SOFTWARE_ENDSTOP_Y
@@ -2341,7 +2351,7 @@
 // However, control resolution will be halved for each increment;
 // at zero value, there are 128 effective control positions.
 // :[0,1,2,3,4,5,6,7]
-#define SOFT_PWM_SCALE 0
+//#define SOFT_PWM_SCALE 0
 
 // If SOFT_PWM_SCALE is set to a value higher than 0, dithering can
 // be used to mitigate the associated resolution loss. If enabled,

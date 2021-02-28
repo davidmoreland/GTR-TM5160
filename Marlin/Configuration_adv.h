@@ -1,12 +1,12 @@
 /**
  * Build Notes:
- * DCM: X2 using E0.
- * Testing Y on GTR board with none good X configs.
- * Invert Step pin 'TRUE' for DM542 / "FALSE" for A4988
+ * DCM: 
  * 
- *  TMC5160:
- * Z works
- * X stutters eratically... Set ALL params to match Z this build
+ * 
+ * 
+ *  
+ * 
+ * 
 **/
 
 /**
@@ -1920,7 +1920,7 @@
 // For debug-echo: 128 bytes for the optimal speed.
 // Other output doesn't need to be that speedy.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256]
-#define TX_BUFFER_SIZE 256
+#define TX_BUFFER_SIZE 128
 
 // Host Receive Buffer Size
 // Without XON/XOFF flow control (see SERIAL_XON_XOFF below) 32 bytes should be enough.
@@ -2288,7 +2288,7 @@
   #if AXIS_IS_TMC(X2)
     #define X2_CURRENT      1000
     #define X2_CURRENT_HOME X2_CURRENT
-    #define X2_MICROSTEPS    8
+    #define X2_MICROSTEPS    16
     #define X2_RSENSE        0.11
     #define X2_CHAIN_POS      -1
   #endif
@@ -2346,7 +2346,7 @@
     #define Z4_CHAIN_POS     -1
   #endif
 
-  #if AXIS_IS_TMC(E0)   // X2
+  #if AXIS_IS_TMC(E0)  
     #define E0_CURRENT      800
     #define E0_MICROSTEPS    16
     #define E0_RSENSE         0.075
@@ -2476,7 +2476,7 @@
    */
   #define STEALTHCHOP_XY
   #define STEALTHCHOP_Z
-  //#define STEALTHCHOP_E
+  #define STEALTHCHOP_E
 
   /**
    * Optimize spreadCycle chopper parameters by using predefined parameter sets
@@ -2528,8 +2528,8 @@
   #define Y_HYBRID_THRESHOLD     50
 //#define Y2_HYBRID_THRESHOLD    100
   #define Z_HYBRID_THRESHOLD       50
-   #define Z2_HYBRID_THRESHOLD      3
-  #define Z3_HYBRID_THRESHOLD      3
+   #define Z2_HYBRID_THRESHOLD      50
+  #define Z3_HYBRID_THRESHOLD     50
   /*
  
   //#define Z4_HYBRID_THRESHOLD      3
