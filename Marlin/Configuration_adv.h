@@ -4,7 +4,7 @@
  * Testing Y on GTR board with none good X configs.
  * Invert Step pin 'TRUE' for DM542 / "FALSE" for A4988
  * 
- *  TMC5130:
+ *  TMC5160:
  * Z works
  * X stutters eratically... Set ALL params to match Z this build
 **/
@@ -584,15 +584,15 @@
 //
 // For Z set the number of stepper drivers
 //
-#define NUM_Z_STEPPER_DRIVERS 1   // (1-4) Z options change based on how many
+#define NUM_Z_STEPPER_DRIVERS 3 // (1-4) Z options change based on how many
 
 #if NUM_Z_STEPPER_DRIVERS > 1
-  //#define Z_MULTI_ENDSTOPS
+  #define Z_MULTI_ENDSTOPS
   #if ENABLED(Z_MULTI_ENDSTOPS)
-    #define Z2_USE_ENDSTOP          _XMAX_
+    #define Z2_USE_ENDSTOP          _YMAX_
     #define Z2_ENDSTOP_ADJUSTMENT   0
     #if NUM_Z_STEPPER_DRIVERS >= 3
-      #define Z3_USE_ENDSTOP        _YMAX_
+      #define Z3_USE_ENDSTOP        _ZMAX_
       #define Z3_ENDSTOP_ADJUSTMENT 0
     #endif
     #if NUM_Z_STEPPER_DRIVERS >= 4
@@ -850,10 +850,10 @@
  * The Deactive Time can be overridden with M18 and M84. Set to 0 for No Timeout.
  */
 #define DEFAULT_STEPPER_DEACTIVE_TIME 0
-#define DISABLE_INACTIVE_X true
-#define DISABLE_INACTIVE_Y true
-#define DISABLE_INACTIVE_Z true  // Set 'false' if the nozzle could fall onto your printed part!
-#define DISABLE_INACTIVE_E true
+#define DISABLE_INACTIVE_X false
+#define DISABLE_INACTIVE_Y false
+#define DISABLE_INACTIVE_Z false  // Set 'false' if the nozzle could fall onto your printed part!
+#define DISABLE_INACTIVE_E false
 
 // If the Nozzle or Bed falls when the Z stepper is disabled, set its resting position here.
 //#define Z_AFTER_DEACTIVATE Z_HOME_POS
@@ -861,8 +861,8 @@
 //#define HOME_AFTER_DEACTIVATE  // Require rehoming after steppers are deactivated
 
 // Default Minimum Feedrates for printing and travel moves
-#define DEFAULT_MINIMUMFEEDRATE       0.0     // (mm/s) Minimum feedrate. Set with M205 S.
-#define DEFAULT_MINTRAVELFEEDRATE     0.0     // (mm/s) Minimum travel feedrate. Set with M205 T.
+#define DEFAULT_MINIMUMFEEDRATE       0.0 // (mm/s) Minimum feedrate. Set with M205 S.
+#define DEFAULT_MINTRAVELFEEDRATE     0.0    // (mm/s) Minimum travel feedrate. Set with M205 T.
 
 // Minimum time that a segment needs to take as the buffer gets emptied
 #define DEFAULT_MINSEGMENTTIME        20000   // (µs) Set with M205 B.
@@ -1920,18 +1920,18 @@
 // For debug-echo: 128 bytes for the optimal speed.
 // Other output doesn't need to be that speedy.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256]
-#define TX_BUFFER_SIZE 0
+#define TX_BUFFER_SIZE 256
 
 // Host Receive Buffer Size
 // Without XON/XOFF flow control (see SERIAL_XON_XOFF below) 32 bytes should be enough.
 // To use flow control, set this buffer size to at least 1024 bytes.
 // :[0, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
-//#define RX_BUFFER_SIZE 1024
+#define RX_BUFFER_SIZE 1024
 
 #if RX_BUFFER_SIZE >= 1024
   // Enable to have the controller send XON/XOFF control characters to
   // the host to signal the RX buffer is becoming full.
-  //#define SERIAL_XON_XOFF
+  #define SERIAL_XON_XOFF
 #endif
 
 // Add M575 G-code to change the baud rate
@@ -2276,26 +2276,27 @@
 
   #if AXIS_IS_TMC(X)
 // BTT 5560 PEAK = 
-  // BTT 5560 max RMS = 3000.
-    #define X_CURRENT       3000    // (mA) RMS current. Multiply by 1.414 for peak current.
+  // BTT 5560 max RMS = 3000.   // testing 5160
+  // 2209
+    #define X_CURRENT       1000   // (mA) RMS current. Multiply by 1.414 for peak current.
     #define X_CURRENT_HOME  X_CURRENT  // (mA) RMS current for sensorless homing
-    #define X_MICROSTEPS     8    // 0..256
-    #define X_RSENSE          0.075
+    #define X_MICROSTEPS     16   // 0..256
+    #define X_RSENSE          0.011
     #define X_CHAIN_POS      -1    // <=0 : Not chained. 1 : MCU MOSI connected. 2 : Next in chain, ...
   #endif
-
+   // 2209
   #if AXIS_IS_TMC(X2)
-    #define X2_CURRENT      3000
+    #define X2_CURRENT      1000
     #define X2_CURRENT_HOME X2_CURRENT
     #define X2_MICROSTEPS    8
-    #define X2_RSENSE        0.075
+    #define X2_RSENSE        0.11
     #define X2_CHAIN_POS      -1
   #endif
-
-  #if AXIS_IS_TMC(Y)
-    #define Y_CURRENT       1800
+  //  2209
+  #if AXIS_IS_TMC(Y)              //Testing 2209
+    #define Y_CURRENT       1000
     #define Y_CURRENT_HOME  Y_CURRENT
-    #define Y_MICROSTEPS     8
+    #define Y_MICROSTEPS     16
     #define Y_RSENSE         0.011
     #define Y_CHAIN_POS       -1
   #endif
@@ -2308,29 +2309,31 @@
     #define Y2_CHAIN_POS     -1
   #endif
 
-  #if AXIS_IS_TMC(Z)
+// 5160
+  #if AXIS_IS_TMC(Z)           
+
   // Max voltage = 35v
   // Max current 3000 
   // 4489 max RMS = 
-    #define Z_CURRENT       3000
+    #define Z_CURRENT       1475
     #define Z_CURRENT_HOME  Z_CURRENT
-    #define Z_MICROSTEPS     8
-    #define Z_RSENSE          0.075 // TMC2209 =>  0.011  TMC 5130 => 0.075
+    #define Z_MICROSTEPS     2
+    #define Z_RSENSE          0.075 // TMC2209 =>  0.011  TMC 5160 => 0.075
     #define Z_CHAIN_POS     -1
   #endif
 
   #if AXIS_IS_TMC(Z2)
-    #define Z2_CURRENT      2000
+    #define Z2_CURRENT      1475
     #define Z2_CURRENT_HOME Z2_CURRENT
-    #define Z2_MICROSTEPS    16
+    #define Z2_MICROSTEPS    2
     #define Z2_RSENSE         0.075
     #define Z2_CHAIN_POS      -1
   #endif
 
   #if AXIS_IS_TMC(Z3)
-    #define Z3_CURRENT      800
+    #define Z3_CURRENT      1475
     #define Z3_CURRENT_HOME Z3_CURRENT
-    #define Z3_MICROSTEPS    16
+    #define Z3_MICROSTEPS    2
     #define Z3_RSENSE         0.075
     #define Z3_CHAIN_POS     -1
   #endif
@@ -2441,10 +2444,10 @@
    * Set *_SERIAL_TX_PIN and *_SERIAL_RX_PIN to match for all drivers
    * on the same serial port, either here or in your board's pins file.
    */
-  //#define  X_SLAVE_ADDRESS 0
-  #define  Y_SLAVE_ADDRESS 0
+  #define  X_SLAVE_ADDRESS 0
+  #define  Y_SLAVE_ADDRESS 1
   //#define  Z_SLAVE_ADDRESS 0
-  //#define X2_SLAVE_ADDRESS 0
+  #define X2_SLAVE_ADDRESS 0
   //#define Y2_SLAVE_ADDRESS 0
   //#define Z2_SLAVE_ADDRESS 0
   //#define Z3_SLAVE_ADDRESS 0
@@ -2464,7 +2467,7 @@
    * Use for drivers that do not use a dedicated enable pin, but rather handle the same
    * function through a communication line such as SPI or UART.
    */
-  #define SOFTWARE_DRIVER_ENABLE
+  //#define SOFTWARE_DRIVER_ENABLE
 
   /**
    * TMC2130, TMC2160, TMC2208, TMC2209, TMC5130 and TMC5160 only
@@ -2490,7 +2493,7 @@
    * Define you own with
    * { <off_time[1..15]>, <hysteresis_end[-3..12]>, hysteresis_start[1..8] }
    */
-  #define CHOPPER_TIMING CHOPPER_DEFAULT_36V
+  #define CHOPPER_TIMING CHOPPER_DEFAULT_24V
 
   /**
    * Monitor Trinamic drivers
@@ -2503,7 +2506,7 @@
    * M912 - Clear stepper driver overtemperature pre-warn condition flag.
    * M122 - Report driver parameters (Requires TMC_DEBUG)
    */
-  #define MONITOR_DRIVER_STATUS
+  //#define MONITOR_DRIVER_STATUS
 
   #if ENABLED(MONITOR_DRIVER_STATUS)
     #define CURRENT_STEP_DOWN     50  // [mA]
@@ -2523,11 +2526,12 @@
   #define X_HYBRID_THRESHOLD     50  // [mm/s]
   #define X2_HYBRID_THRESHOLD    50
   #define Y_HYBRID_THRESHOLD     50
-  //#define Y2_HYBRID_THRESHOLD    100
-  #define Z_HYBRID_THRESHOLD       3
+//#define Y2_HYBRID_THRESHOLD    100
+  #define Z_HYBRID_THRESHOLD       50
+   #define Z2_HYBRID_THRESHOLD      3
+  #define Z3_HYBRID_THRESHOLD      3
   /*
-  //#define Z2_HYBRID_THRESHOLD      3
-  //#define Z3_HYBRID_THRESHOLD      3
+ 
   //#define Z4_HYBRID_THRESHOLD      3
   #define E0_HYBRID_THRESHOLD     30
   #define E1_HYBRID_THRESHOLD     30
